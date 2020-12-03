@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<meta charset="UTF-8">
+	<!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link rel="stylesheet" href="/style/stylecss.css"/>
+	
+		<script type = "text/javascript"
+	   src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>           
+	<script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+	<script
+  		src="https://code.jquery.com/jquery-3.4.1.js"
+  		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  		crossorigin="anonymous">
+	</script>
+    <script>
+         $(document).ready(function() {
+            $('select').material_select();
+        });
+    </script>
+	<script>
+		$(document).ready(function() {
+			$('checkbox').material_select();
+		});
+	</script>
+	<script>
+		$(document).ready(function() {
+ 			$("#cpf").mask("000.000.000-00")
+		});
+	</script>
+	<script>
+	    $(document).ready(function() {
+		    M.updateTextFields();
+		  });
+    </script>
+    <script>
+      $(document).ready(function(){
+        $('.modal').modal();
+      });
+
+    </script>
+   </head>
+
+<body>
+	<div class="modal formGerais" id="modal1">
+		<div class="modal-content">
+			<header>
+				<nav>
+					<div class="nav-wrapper #1b5e20 green darken-4" style="padding-top:15px;padding-left:50px;;">
+						<h3 style="font-size: 30px;">Atualizar Senha</h3>
+		    		</div>
+				</nav>	
+			</header>
+			<form method="post" class="container formGerais">
+				<div class="input-field col s3">
+					<label for="senha" class="active">Senha</label>			
+					<input type="password" value="" name="senha"/>
+				</div>
+				<div class="input-field col s3">
+					<div class="row">
+					<a class="waves-effect waves-light btn modal-trigger" href="#modal1" name="action" value="atualizarSenha" >Atualizar Senha</a>
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		<div class="modal-footer">
+			<a class="btn modal-close modal-action">Sair</a>
+		</div>
+	</div>
+
+	<header>
+		<nav>
+			<div class="nav-wrapper #1b5e20 green darken-4">
+				<a href="#!" class="brand-logo"><i class="material-icons" style="margin-left:50px">group_add</i>Pessoas - Cadastrar</a>
+				<ul class="right hide-on-med-and-down">
+					<li><a href="/pessoas"><i class="material-icons" data-tooltip="Pessoas">format_list_bulleted</i></a></li>
+	        		<li><a href="/cadastroPessoas"><i class="material-icons">group_add</i></a></li>
+	        		<li><a href="/departamentofuncao"><i class="material-icons">group_work</i></a></li>
+	        		<li><a href="/enviomensagens"><i class="material-icons">message</i></a></li>
+	      		</ul>
+		    </div>
+		</nav>	
+	</header>
+	<form method="post" class="container formGerais">
+		<div class="row">
+			<div class="input-field col s5">
+				<input type="text" id="nome" value="" name="nomecompleto" required/>
+				<label for="nome" class="active">Nome</label>
+			</div>
+			<div class="input-field col s3">
+				<label for="cpf" class="active">CPF</label>
+				<input type="text" id="cpf" value="" name="cpf" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" required/>
+			</div>
+			<div class="input-field col s3 minuscula">
+				<label for="email" class="active">Email</label>
+				<input type="text" value="" name="email" id="email"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s4">
+				<label for="endereco" class="active">Endereço</label>
+				<input type="text" value="" name="endereco" id="numero" required/>
+			</div>
+			<div class="input-field col s1">
+				<label for="numeri" class="active">Número</label>
+				<input type="number" value="" id="numero" required/>
+			</div>
+			<div class="input-field col s3">
+				<label for="bairro" class="active">Bairro</label>
+				<input type="text" value="" name="bairro" id="bairro" required/>
+			</div>
+			<div class="input-field col s3">
+				<label for="cidade" class="active">Cidade</label>
+				<input type="text" value="" name="cidade" required/>
+			</div>
+			<div class="input-field col s1">
+				<label for="uf" class="active">Estado</label>
+				<input type="text" value="" name="estado" maxlength="2" id="uf" required/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s6">
+				<label for="dep" class="active">Departamento</label>
+				<select name="dep" style="visibility: visible;" class="browser-default">
+					<option value="" disabled selected>Selecione um departamento</option>
+					<option th:each="dep:${dep}" th:value="${dep.id}" th:text="${dep.descricao}"/>
+				</select>
+			</div>
+			<div class="input-field col s6">
+				<label for="fun" class="active">Função</label>
+				<select th:object="${func}" name="fun" style="visibility: visible;" class="browser-default">
+					<option value="1" disabled selected>Selecione uma função</option>
+					<option th:each="func:${func}" 
+							th:value="${func.getId()}"
+							th:utext="${func.getId()}"/>
+				</select>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="input-field col s3">
+				<button type="submit" class="waves-effect waves-light btn" name="action" value="inserirPessoa"><i class="material-icons left">add_box</i>Gravar</button>
+			</div>
+		</div>
+	</form>
+	<table class="container tabelaCadastros striped responsive-table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nome</th>
+				<th>CPF</th>
+				<th>E-mail</th>
+				<th>Ações</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="registro : ${registro}">
+				<td><span th:text="${registro.codigo}"></span></td>
+				<td><span th:text="${registro.nomecompleto}"></span></td>
+				<td><span th:text="${registro.cpf}"></span></td>
+				<td><span th:text="${registro.email}"></span></td>
+				<td><a href="editarCadastroPessoas" th:href="@{/cadastroPessoas/edit/{codigo}(codigo=${registro.codigo})}" name="action" value="editarPessoa"><i class="material-icons">edit</i></a></td>
+				<td><a href="#" name="action" value="deletarPessoa"><i class="material-icons">delete</i></a></td>
+			</tr>
+		</tbody>
+	</table>
+  
+	<!--JavaScript at end of body for optimized loading-->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+</body>
+<footer class="page-footer rodape nav-wrapper #1b5e20 green darken-4">
+	<div class="footer-copyright">
+		<div class="container">
+			© 2020 Direitos Reservados
+			<a class="grey-text text-lighten-4 right" href="#!"></a>
+		</div>
+	</div>
+</footer>
+</html>
