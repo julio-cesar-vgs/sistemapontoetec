@@ -3,8 +3,8 @@ package com.example.algamoney.api.resource;
 import java.net.URI;
 import java.util.List;
 
-import javax.persistence.metamodel.StaticMetamodel;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +34,7 @@ public class CategoriaResource {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Categoria> salvarCategoria(@RequestBody Categoria categoria, HttpServletResponse response) {
+	public ResponseEntity<Categoria> salvarCategoria(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
 		Categoria categoriasSalva = categoriasRepository.save(categoria);
 		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/{codigo}")
 				.buildAndExpand(categoriasSalva.getCodigo()).toUri();
